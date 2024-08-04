@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:notes_app/Cubits/notes_cubit/notes_cubit.dart';
 import 'package:notes_app/Model/note_model.dart';
 import 'package:notes_app/View/edit_note_view.dart';
 
@@ -12,7 +14,9 @@ class ItemCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return EditNoteView();
+          return EditNoteView(
+            note: notes,
+          );
         }));
       },
       child: Container(
@@ -38,7 +42,10 @@ class ItemCard extends StatelessWidget {
                 ),
               ),
               trailing: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  notes.delete();
+                  BlocProvider.of<NotesCubit>(context).fetchAllNote();
+                },
                 icon: Icon(
                   FontAwesomeIcons.trash,
                   color: Colors.black,

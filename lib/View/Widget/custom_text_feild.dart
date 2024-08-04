@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/constant.dart';
 
 class CustomTextFeild extends StatelessWidget {
-  const CustomTextFeild({required this.hint, this.maxLines = 1, this.onSaved});
+  const CustomTextFeild(
+      {required this.hint, this.maxLines = 1, this.onSaved, this.onChanged});
   final String hint;
   final int maxLines;
+  final void Function(String)? onChanged;
   final void Function(String?)? onSaved;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       onSaved: onSaved,
+      onChanged: onChanged,
       validator: (value) {
         if (value?.isEmpty ?? true) {
           return 'Feild is required';
